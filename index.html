@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vagas de Estágio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="hero">
+        <nav class="navbar">
+            <h1>Estágio<span>+</span></h1>
+            <a href="#cadastro">Cadastrar vaga</a>
+        </nav>
+
+        <div class="hero-content">
+            <div>
+                <p class="tag">OPORTUNIDADES PARA VOCÊ</p>
+                <h2>Encontre sua próxima<br>oportunidade de estágio.</h2>
+                <p class="description">
+                    Cadastre-se e divulgue sua vaga de estágio de forma simples,
+                    rápida e organizada.
+                </p>
+                <a class="button" href="#cadastro">Quero cadastrar uma vaga</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="cadastro" class="form-section">
+            <div class="section-title">
+                <p class="tag">CADASTRO</p>
+                <h2>Divulgue uma vaga</h2>
+                <p>Preencha os dados abaixo para que a oportunidade apareça na tabela.</p>
+            </div>
+
+            <form id="vagaForm" class="vaga-form">
+                <div class="form-group">
+                    <label for="empresa">Empresa</label>
+                    <input type="text" id="empresa" placeholder="Nome da empresa" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="vaga">Nome da vaga</label>
+                    <input type="text" id="vaga" placeholder="Ex.: Estagiário de Desenvolvimento" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="curso">Curso / Área</label>
+                    <input type="text" id="curso" placeholder="Ex.: Tecnologia da Informação" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="modalidade">Modalidade</label>
+                    <select id="modalidade" required>
+                        <option value="">Selecione</option>
+                        <option value="Presencial">Presencial</option>
+                        <option value="Híbrido">Híbrido</option>
+                        <option value="Remoto">Remoto</option>
+                    </select>
+                </div>
+
+                <div class="form-group full">
+                    <label for="local">Local / Cidade</label>
+                    <input type="text" id="local" placeholder="Ex.: Fortaleza - CE" required>
+                </div>
+
+                <div class="form-group full">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" rows="4" placeholder="Descreva brevemente a vaga" required></textarea>
+                </div>
+
+                <button type="submit" class="button submit-button">Cadastrar vaga</button>
+            </form>
+        </section>
+
+        <section class="jobs-section">
+            <div class="section-title">
+                <p class="tag">OPORTUNIDADES</p>
+                <h2>Vagas disponíveis</h2>
+                <p>Confira as oportunidades cadastradas.</p>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Empresa</th>
+                            <th>Vaga</th>
+                            <th>Curso / Área</th>
+                            <th>Modalidade</th>
+                            <th>Local</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaVagas">
+                        <tr class="empty-row">
+                            <td colspan="5">Nenhuma vaga cadastrada ainda.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Estágio+ | Plataforma de oportunidades de estágio</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById("vagaForm");
+        const tabela = document.getElementById("tabelaVagas");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const empresa = document.getElementById("empresa").value;
+            const vaga = document.getElementById("vaga").value;
+            const curso = document.getElementById("curso").value;
+            const modalidade = document.getElementById("modalidade").value;
+            const local = document.getElementById("local").value;
+
+            const linhaVazia = tabela.querySelector(".empty-row");
+            if (linhaVazia) {
+                linhaVazia.remove();
+            }
+
+            const novaLinha = document.createElement("tr");
+
+            [empresa, vaga, curso, modalidade, local].forEach(function(valor) {
+                const coluna = document.createElement("td");
+                coluna.textContent = valor;
+                novaLinha.appendChild(coluna);
+            });
+
+            tabela.appendChild(novaLinha);
+
+            form.reset();
+
+            document.querySelector(".jobs-section").scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    </script>
+
+</body>
+</html>
